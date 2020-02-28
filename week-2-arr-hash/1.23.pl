@@ -9,5 +9,5 @@ for (1..1000) {
 	}
 	$tmp = shift @test;
 	push(@test, $tmp);
-
+	sleep 1;
 }
