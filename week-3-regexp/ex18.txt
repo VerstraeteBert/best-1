@@ -1,0 +1,75 @@
+Use a combination of the /g and /c match modifiers, the \G pattern anchor, and the pos function.
+
+Bespreking
+The /g modifier on a pattern match makes the matching engine keep track of the position in the string where it finished matching.
+If the next match also uses /g on that string, the engine starts looking for a match from this remembered position.
+This lets you, for example, use a while loop to progressively extract repeated occurrences of a match.
+ Here we find all non-negative integers:
+
+while (/(\d+)/g) {
+    print "Found number $1\n";
+}
+Within a pattern, \G means the end of the previous match.
+For example, if you had a number stored in a string with leading blanks,
+you could change each leading blank into the digit zero this way:
+
+$n = "   49 here";
+$n =~ s/\G /0/g;
+print $n;
+00049 here
+
+You can also make good use of \G in a while loop.
+Here we use \G to parse a comma-separated list of numbers (e.g., "3,4,5,9,120"):
+
+while (/\G,?(\d+)/g) {
+    print "Found number $1\n";
+}
+By default, when your match fails (when we run out of numbers in the examples, for instance)
+the remembered position is reset to the start.
+If you don't want this to happen, perhaps because you want to continue matching from that position but with a different pattern,
+use the modifier /c with /g:
+
+$_ = "The year 1752 lost 10 days on the 3rd of September";
+
+while (/(\d+)/gc) {
+    print "Found number $1\n";
+}
+# the /c above left pos at end of final match
+
+if (/\G(\S+)/g) {
+    print "Found $1 right after the last number.\n";
+}
+
+Found number 1752
+Found number 10
+Found number 3
+Found rd after the last number.
+
+Successive patterns can use /g on a string,
+which remembers the ending position of the last successful match.
+That position is associated with the scalar matched against, not with the pattern.
+It's reset if the string is modified.
+
+The position of the last successful match can be directly inspected or altered with the pos function,
+whose argument is the string whose position you want to get or set. Assign to the function to set the position.
+
+$a = "Didst thou think that the eyes of the White Tower were blind?";
+$a =~ /(\w{5,})/g;
+print "Got $1, position in \$a is ", pos($a), "\n";
+Got Didst, position in $a is 5
+
+pos($a) = 30;
+$a =~ /(\w{5,})/g;
+print "Got $1, position in \$a now ", pos($a), "\n";
+Got White, position in $a now 43
+Without an argument, pos operates on $_:
+
+$_ = "Nay, I have seen more than thou knowest, Grey Fool.";
+/(\w{5,})/g;
+print "Got $1, position in \$_ is ", pos, "\n";
+pos = 42;
+/\b(\w+)/g;
+print "Next full word after position 42 is $1\n";
+
+Got knowest, position in $_ is 39
+Next full word after position 42 is Fool
