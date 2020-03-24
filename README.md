@@ -1,2 +1,2 @@
 # Perl
-[Regexp samenvatting](./week-3-regexp/regexp.md)
+[Regexp samenvatting](reeks3-regexp/regexp.md)
