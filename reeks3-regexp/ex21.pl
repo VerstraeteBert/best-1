@@ -6,7 +6,7 @@
 $/ = '';
 while (<DATA>) {
     while (/^START(.*?)^END/gsm) {
-        print "chunk $. in $_ has <<$1>>\n";
+        print "chunk $. has <<$1>>\n";
     }
 }
 

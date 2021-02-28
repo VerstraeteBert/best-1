@@ -9,12 +9,12 @@
 
 # loop over keys
 for $key (keys %test) {
-	print $key . " ";
+	print $key . "=>" . $test{$key} . " ";
 }
 print "\n";
 
 # sorted
 for $key (sort(keys %test)) {
-	print $key . " ";
+	print $key . "=>" . $test{$key} . " ";
 }
 print "\n";

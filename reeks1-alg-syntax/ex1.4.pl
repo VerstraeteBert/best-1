@@ -5,6 +5,7 @@ my $zin = "Was it a car or a cat I saw?";
 
 print "Orig: " . $zin . "\n";
 
-print "Reverse chars: " . reverse($zin) . "\n";
+my $woord = "test"
+print reverse $woord
 
-print "Reverse words: " . join(" ", reverse(split(" ", $zin))) . "\n";
+$zin = join(" ", reverse split(' ', $zin))

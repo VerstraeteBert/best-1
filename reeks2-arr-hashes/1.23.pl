@@ -2,12 +2,55 @@
 # het eerste en alle daaropvolgende elementen telkens opnieuw afgelopen worden.
 @test = (1,2,3,4);
 
-for (1..1000) {
-	print $test[0] . " ";
-	if ($test[0] == 4) {
-		print "\n";
-	}
-	$tmp = shift @test;
-	push(@test, $tmp);
-	sleep 1;
+#for (1..1000) {
+#	print $test[0] . " ";
+#	if ($test[0] == 4) {
+#		print "\n";
+#	}
+#	$tmp = shift @test;
+#	push(@test, $tmp);
+#	sleep 1;
+#}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@test = (1,2,3,4);
+for (0..1000) {
+    $el = shift(@test);
+    print "$el ";
+    push(@test, $el);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
